@@ -2,34 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerInteraction : MonoBehaviour
+public class PlayerInteraction : MonoBehaviour
 {
     // Variables for the mouse
     private Vector2 startPosition;
     private Vector2 endPosition;
     private Vector2 newVelocity;
-    private float speedMultiplier = 5; 
+    private float speedMultiplier = 5;
 
     // Start is called before the first frame update
     private void Start() {}
 
     // Update is called once per frame
-    private void Update() {}
+    private void Update() { }
 
     // Checks if mouse button 1 is pressed down
     private void OnMouseDown() {
-        startPosition = Input.mousePosition;
-        startPosition = Camera.main.ScreenToWorldPoint(startPosition); // Converts mouse positioning from screen to world
+        this.startPosition = Input.mousePosition;
+        this.startPosition = Camera.main.ScreenToWorldPoint(this.startPosition); // Converts mouse positioning from screen to world
     }
 
     // Checks if mouse button 1 is released
     private void OnMouseUp() {
-        endPosition = Input.mousePosition;
-        endPosition = Camera.main.ScreenToWorldPoint(endPosition); // Converts mouse positioning from screen to world
+        this.endPosition = Input.mousePosition;
+        this.endPosition = Camera.main.ScreenToWorldPoint(this.endPosition); // Converts mouse positioning from screen to world 
 
-        newVelocity = VelocityCalculation(startPosition, endPosition);
+        if (this.GetComponent<Rigidbody2D>().velocity.x == 0 && this.GetComponent<Rigidbody2D>().velocity.y == 0) {
+            this.newVelocity = VelocityCalculation(this.startPosition, this.endPosition);
 
-        this.GetComponent<Rigidbody2D>().velocity = newVelocity;
+            this.GetComponent<Rigidbody2D>().velocity = this.newVelocity;
+        }
     }
 
     // Runs when mouse 1 is pressed
