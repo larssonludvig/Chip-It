@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    public static PlayerInteraction instance;
+    private readonly GameManager instance;
+    public static PlayerInteraction interaction;
 
     public Vector2 lastPosition;
 
@@ -22,7 +23,7 @@ public class PlayerInteraction : MonoBehaviour
     /// Starts an instance
     /// </summary>
     private void Start() {
-        instance = this;
+        interaction = this;
     }
 
     /// <summary>
@@ -50,10 +51,10 @@ public class PlayerInteraction : MonoBehaviour
         this.endPosition = Input.mousePosition;
         this.endPosition = Camera.main.ScreenToWorldPoint(this.endPosition); // Converts mouse positioning from screen to world 
 
-        if (this.GetComponent<Rigidbody2D>().velocity.x <= 0.1 && this.GetComponent<Rigidbody2D>().velocity.y <= 0.1 && finish != true) {
+        if (this.GetComponent<Rigidbody2D>().velocity.x <= 0.1 && this.GetComponent<Rigidbody2D>().velocity.y <= 0.1 && GameManager.instance.finish != true) {
             this.newVelocity = VelocityCalculation(this.startPosition, this.endPosition);
             this.GetComponent<Rigidbody2D>().velocity = this.newVelocity;
-            IncreaseScore();
+            GameManager.instance.IncreaseScore();
         }
     }
 
@@ -73,13 +74,5 @@ public class PlayerInteraction : MonoBehaviour
         velocity.x = -(end.x - start.x) * this.speedMultiplier;
         velocity.y = -(end.y - start.y) * this.speedMultiplier;
         return velocity;
-    }
-
-    /// <summary>
-    /// Increases the score by 1
-    /// </summary>
-    public void IncreaseScore() {
-        score++;
-        Debug.Log(score);
     }
 }
