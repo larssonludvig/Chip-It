@@ -19,7 +19,7 @@ public class GoleTriggerEvent : MonoBehaviour
         if (collision.CompareTag("Player")) {
             await Task.Delay(delay);
             if (collision.CompareTag("Player")) {
-                GameManager.instance.StopGame();
+                GameManager.instance.LevelComplete();
             }
         }
     }

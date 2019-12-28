@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public bool finish = false;
     private int once = 0;
 
+    public GameObject completeLevelUI;
+
     /// <summary>
     /// Starts an instance
     /// </summary>
@@ -40,7 +42,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Game is stoped due to end of hole.
     /// </summary>
-    public void StopGame() {
-        GameManager.instance.finish = true;
+    public void LevelComplete() {
+        completeLevelUI.SetActive(true);
     }
 }
