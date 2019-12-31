@@ -41,12 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: TriggerBoxLayer
+    uniqueID: 899778409
+    locked: 0
   - name: Background
     uniqueID: 676328985
     locked: 0
   - name: Ground
     uniqueID: 2553043749
     locked: 0
-  - name: Front
+  - name: Foreground
+    uniqueID: 552083517
+    locked: 0
+  - name: Player
     uniqueID: 4015842883
     locked: 0

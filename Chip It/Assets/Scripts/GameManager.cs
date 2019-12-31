@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     private int score = 0;
 
+    private Vector2 resetVelocity;
+
     public bool finish = false;
     private int once = 0;
 
@@ -24,7 +26,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Checks if game is still live
     /// </summary>
-    private void Update(){
+    private void Update() {
         if (this.finish != false && this.once == 0) {
             Debug.Log("GOOOLE!");
             this.once++;
@@ -37,6 +39,15 @@ public class GameManager : MonoBehaviour
     public void IncreaseScore() {
         score++;
         Debug.Log(score);
+    }
+
+    /// <summary>
+    /// Sets the player back to last location and adds 1 to the score
+    /// </summary>
+    public void SetBackPlayer() {
+        PlayerInteraction.interaction.GetComponent<Rigidbody2D>().position = PlayerInteraction.interaction.lastPosition;
+        PlayerInteraction.interaction.GetComponent<Rigidbody2D>().velocity = resetVelocity;
+        GameManager.instance.IncreaseScore();
     }
 
     /// <summary>
