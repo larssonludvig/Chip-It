@@ -59,11 +59,6 @@ public class PlayerInteraction : MonoBehaviour
     }
 
     /// <summary>
-    /// Runs when mouse 1 is pressed
-    /// </summary>
-    private void OnMouseDrag() {}
-
-    /// <summary>
     /// Calculates the differences between start and end position for mouse and produce a new velocity
     /// </summary>
     /// <param name="start"></param>
