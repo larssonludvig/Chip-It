@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public readonly PlayerInteraction interaction;
+    private readonly PlayerInteraction interaction;
 
     private int score = 0;
 
@@ -42,6 +42,10 @@ public class GameManager : MonoBehaviour
         Debug.Log(score);
     }
 
+    public int GetScore() {
+        return score;
+    }
+
     /// <summary>
     /// Sets the player back to last location and adds 1 to the score
     /// </summary>
@@ -56,6 +60,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void LevelComplete() {
         completeLevelUI.SetActive(true);
+
     }
 
     public void LoadMainMenu() {

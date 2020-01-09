@@ -608,6 +608,7 @@ GameObject:
   - component: {fileID: 180031581}
   - component: {fileID: 180031583}
   - component: {fileID: 180031582}
+  - component: {fileID: 180031584}
   m_Layer: 5
   m_Name: TotalHits
   m_TagString: Untagged
@@ -753,6 +754,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 180031580}
   m_CullTransparentMesh: 0
+--- !u!114 &180031584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180031580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff8c92dc38394ce43b5fc431c67d5a22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &266562520
 GameObject:
   m_ObjectHideFlags: 0
@@ -1726,7 +1739,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1485303724}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.87, y: -0.76, z: 10.957474}
+  m_LocalPosition: {x: -7.26, y: -0.78, z: 10.957474}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 391390732}
