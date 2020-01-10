@@ -32,6 +32,9 @@ public class GameManager : MonoBehaviour
             Debug.Log("GOOOLE!");
             this.once++;
         }
+        if (Input.GetKeyDown("escape")) {
+            Application.Quit();
+        }
     }
 
     /// <summary>
