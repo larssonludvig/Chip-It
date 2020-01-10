@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     private Vector2 resetVelocity;
 
     public bool finish = false;
-    private int once = 0;
 
     public GameObject completeLevelUI;
 
@@ -28,10 +27,6 @@ public class GameManager : MonoBehaviour
     /// Checks if game is still live
     /// </summary>
     private void Update() {
-        if (this.finish != false && this.once == 0) {
-            Debug.Log("GOOOLE!");
-            this.once++;
-        }
         if (Input.GetKeyDown("escape")) {
             Application.Quit();
         }
@@ -42,7 +37,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void IncreaseScore() {
         score++;
-        Debug.Log(score);
     }
 
     public int GetScore() {
@@ -62,8 +56,8 @@ public class GameManager : MonoBehaviour
     /// Game is stoped due to end of hole.
     /// </summary>
     public void LevelComplete() {
+        this.finish = true;
         completeLevelUI.SetActive(true);
-
     }
 
     public void LoadMainMenu() {

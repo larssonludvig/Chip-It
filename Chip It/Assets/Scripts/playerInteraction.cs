@@ -15,10 +15,6 @@ public class PlayerInteraction : MonoBehaviour
     private Vector2 newVelocity;
     private readonly int speedMultiplier = 6;
 
-    // Score
-    private int score = 0;
-    public bool finish = false;
-
     /// <summary>
     /// Starts an instance
     /// </summary>
