@@ -8,8 +8,6 @@ public class PlayerInteraction : MonoBehaviour
     public static PlayerInteraction interaction;
 
     public Vector2 lastPosition;
-
-    // Variables for the mouse
     private Vector2 startPosition;
     private Vector2 endPosition;
     private Vector2 newVelocity;
@@ -23,7 +21,7 @@ public class PlayerInteraction : MonoBehaviour
     }
 
     /// <summary>
-    /// Upadtes the last location of the player
+    /// Runs every update
     /// </summary>
     private void Update() {
         if (this.GetComponent<Rigidbody2D>().velocity.x == 0 && this.GetComponent<Rigidbody2D>().velocity.y == 0 && this.lastPosition != this.GetComponent<Rigidbody2D>().position) {
