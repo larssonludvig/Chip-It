@@ -10,8 +10,6 @@ public class GameManager : MonoBehaviour
 
     private int score = 0;
 
-    private Vector2 resetVelocity;
-
     public bool finish = false;
 
     public GameObject completeLevelUI;
@@ -48,7 +46,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void SetBackPlayer() {
         PlayerInteraction.interaction.GetComponent<Rigidbody2D>().position = PlayerInteraction.interaction.lastPosition;
-        PlayerInteraction.interaction.GetComponent<Rigidbody2D>().velocity = resetVelocity;
+        PlayerInteraction.interaction.ResetVelocity();
         GameManager.instance.IncreaseScore();
     }
 
@@ -60,6 +58,9 @@ public class GameManager : MonoBehaviour
         completeLevelUI.SetActive(true);
     }
 
+    /// <summary>
+    /// Loads the main menu
+    /// </summary>
     public void LoadMainMenu() {
         SceneManager.LoadScene(0);
     }

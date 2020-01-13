@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -11,44 +12,58 @@ public class PlayerInteraction : MonoBehaviour
     private Vector2 startPosition;
     private Vector2 endPosition;
     private Vector2 newVelocity;
+    private Vector2 resetVelocity;
     private readonly int speedMultiplier = 6;
+    public bool pressed = false;
+    public bool triggerBox = false;
 
     /// <summary>
     /// Starts an instance
     /// </summary>
     private void Start() {
         interaction = this;
+        resetVelocity = this.GetComponent<Rigidbody2D>().velocity;
+        this.lastPosition = this.GetComponent<Rigidbody2D>().position;
     }
 
     /// <summary>
     /// Runs every update
     /// </summary>
-    private void Update() {
-        if (this.GetComponent<Rigidbody2D>().velocity.x == 0 && this.GetComponent<Rigidbody2D>().velocity.y == 0 && this.lastPosition != this.GetComponent<Rigidbody2D>().position) {
-            this.lastPosition = this.GetComponent<Rigidbody2D>().position;
+    private async void Update() {
+        // Resets the velocity if it is to low
+        if (this.GetComponent<Rigidbody2D>().velocity.magnitude < 0.15 && this.lastPosition != this.GetComponent<Rigidbody2D>().position && this.GetComponent<Rigidbody2D>().velocity != this.resetVelocity) {
+            await Task.Delay(200);
+            if (this.GetComponent<Rigidbody2D>().velocity.magnitude < 0.15) {
+                ResetVelocity();
+                if (!this.triggerBox) {
+                    this.lastPosition = this.GetComponent<Rigidbody2D>().position;
+                }
+            }
         }
     }
-
 
     /// <summary>
     /// Checks if mouse button 1 is pressed down
     /// </summary>
     private void OnMouseDown() {
-        this.startPosition = Input.mousePosition;
-        this.startPosition = Camera.main.ScreenToWorldPoint(this.startPosition); // Converts mouse positioning from screen to world
+        if (this.GetComponent<Rigidbody2D>().velocity.magnitude == 0) {
+            this.startPosition = Input.mousePosition;
+            this.startPosition = Camera.main.ScreenToWorldPoint(this.startPosition); // Converts mouse positioning from screen to world
+            this.pressed = true;
+        }
     }
 
     /// <summary>
     /// Checks if mouse button 1 is released
     /// </summary>
     private void OnMouseUp() {
-        this.endPosition = Input.mousePosition;
-        this.endPosition = Camera.main.ScreenToWorldPoint(this.endPosition); // Converts mouse positioning from screen to world 
-
-        if (this.GetComponent<Rigidbody2D>().velocity.x <= 0.1 && this.GetComponent<Rigidbody2D>().velocity.y <= 0.1 && GameManager.instance.finish != true) {
+        if (this.GetComponent<Rigidbody2D>().velocity.magnitude == 0 && GameManager.instance.finish != true) {
+            this.endPosition = Input.mousePosition;
+            this.endPosition = Camera.main.ScreenToWorldPoint(this.endPosition); // Converts mouse positioning from screen to world 
             this.newVelocity = VelocityCalculation(this.startPosition, this.endPosition);
             this.GetComponent<Rigidbody2D>().velocity = this.newVelocity;
             GameManager.instance.IncreaseScore();
+            this.pressed = false;
         }
     }
 
@@ -63,5 +78,12 @@ public class PlayerInteraction : MonoBehaviour
         velocity.x = -(end.x - start.x) * this.speedMultiplier;
         velocity.y = -(end.y - start.y) * this.speedMultiplier;
         return velocity;
+    }
+
+    /// <summary>
+    /// Resets the velocity of the player
+    /// </summary>
+    public void ResetVelocity() {
+        this.GetComponent<Rigidbody2D>().velocity = this.resetVelocity;
     }
 }

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class GoleTriggerEvent : MonoBehaviour
 {
-    private readonly GameManager manager;
-    private readonly PlayerInteraction instance;
+    private readonly GameManager instance;
+    private readonly PlayerInteraction interaction;
     private Vector2 resetVelocity;
     private readonly int delay = 2000;
 
@@ -17,9 +17,11 @@ public class GoleTriggerEvent : MonoBehaviour
     private async void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player")) {
-            await Task.Delay(delay);
+            PlayerInteraction.interaction.triggerBox = true;
+            await Task.Delay(this.delay);
             if (collision.CompareTag("Player")) {
                 GameManager.instance.LevelComplete();
+                PlayerInteraction.interaction.triggerBox = false;
             }
         }
     }

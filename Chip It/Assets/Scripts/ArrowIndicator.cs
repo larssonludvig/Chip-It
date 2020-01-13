@@ -24,24 +24,36 @@ public class ArrowIndicator : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) {
-            GetComponent<Transform>().position = PlayerInteraction.interaction.lastPosition;
-            this.start = Input.mousePosition;
-            this.start = Camera.main.ScreenToWorldPoint(this.start); // Converts mouse positioning from screen to world
-            this.mouseDown = true;
+        if (PlayerInteraction.interaction.pressed) {
+            // Button input
+            if (Input.GetMouseButtonDown(0)) {
+                GetComponent<Transform>().position = PlayerInteraction.interaction.lastPosition;
+                this.start = Input.mousePosition;
+                this.start = Camera.main.ScreenToWorldPoint(this.start); // Converts mouse positioning from screen to world
+                this.mouseDown = true;
+            }
+            if (Input.GetMouseButtonUp(0)) {
+                //GetComponent<Transform>().position = this.resetPosition;
+                this.mouseDown = false;
+            }
+            this.end = Input.mousePosition;
+            this.end = Camera.main.ScreenToWorldPoint(this.end); // Converts mouse positioning from screen to world
+
+            // Arrow rotation
+            if (mouseDown && this.start != this.end) {
+                Quaternion rot = new Quaternion();
+                if (this.start.x >= this.end.x) {
+                    rot.eulerAngles = new Vector3(0, 0, Convert.ToSingle(Math.Atan((this.start.y - this.end.y) / (this.start.x - this.end.x)) * 180 / Math.PI) - 90);
+                } else {
+                    rot.eulerAngles = new Vector3(0, 0, Convert.ToSingle(Math.Atan((this.start.y - this.end.y) / (this.start.x - this.end.x)) * 180 / Math.PI) - 270);
+                }
+                GetComponent<Transform>().rotation = rot;
+            }
         }
-        if (Input.GetMouseButtonUp(0)) {
+
+        // Resets arrow indicator
+        if (!PlayerInteraction.interaction.pressed && GetComponent<Transform>().position.x != this.resetPosition.x) {
             GetComponent<Transform>().position = this.resetPosition;
-            this.mouseDown = false;
-        }
-        this.end = Input.mousePosition;
-        this.end = Camera.main.ScreenToWorldPoint(this.end); // Converts mouse positioning from screen to world
-
-        if (mouseDown == true && this.start != this.end) {
-            Quaternion rot = new Quaternion();
-            rot.eulerAngles = new Vector3(0, 0, Convert.ToSingle(Math.Atan((this.start.y - this.end.y) / (this.start.x - this.end.x)) * 180 / Math.PI) - 45);
-
-            GetComponent<Transform>().rotation = rot;
         }
     }
 }
