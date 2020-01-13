@@ -37,10 +37,10 @@ public class ArrowIndicator : MonoBehaviour
         this.end = Input.mousePosition;
         this.end = Camera.main.ScreenToWorldPoint(this.end); // Converts mouse positioning from screen to world
 
-        if (mouseDown == true) {
+        if (mouseDown == true && this.start != this.end) {
             Quaternion rot = new Quaternion();
             rot.eulerAngles = new Vector3(0, 0, Convert.ToSingle(Math.Atan((this.start.y - this.end.y) / (this.start.x - this.end.x)) * 180 / Math.PI) - 45);
-            
+
             GetComponent<Transform>().rotation = rot;
         }
     }
