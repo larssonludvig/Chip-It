@@ -7,15 +7,19 @@ public class ArrowIndicator : MonoBehaviour
 {
     private PlayerInteraction interaction;
     private Vector2 resetPosition;
+    public static ArrowIndicator indicator;
 
-    private Vector2 start;
-    private Vector2 end;
-    private bool mouseDown = false;
+    public Vector2 start;
+    public Vector2 end;
+    public double arrowScale;
+    public int arrowScaleMultiplier = 2;
+    public bool mouseDown = false;
 
     /// <summary>
     /// Runs when instance starts
     /// </summary>
     private void Start() {
+        indicator = this;
         this.resetPosition = GetComponent<Transform>().position;
     }
 
@@ -40,12 +44,18 @@ public class ArrowIndicator : MonoBehaviour
             this.end = Camera.main.ScreenToWorldPoint(this.end); // Converts mouse positioning from screen to world
 
             // Arrow rotation
-            if (mouseDown && this.start != this.end) {
+            if (this.mouseDown && this.start != this.end) {
                 Quaternion rot = new Quaternion();
                 if (this.start.x >= this.end.x) {
                     rot.eulerAngles = new Vector3(0, 0, Convert.ToSingle(Math.Atan((this.start.y - this.end.y) / (this.start.x - this.end.x)) * 180 / Math.PI) - 90);
                 } else {
                     rot.eulerAngles = new Vector3(0, 0, Convert.ToSingle(Math.Atan((this.start.y - this.end.y) / (this.start.x - this.end.x)) * 180 / Math.PI) - 270);
+                }
+                this.arrowScale = Math.Sqrt(Math.Pow((this.start.y - this.end.y), 2) + Math.Pow((this.start.x - this.end.x), 2)) * this.arrowScaleMultiplier;
+                if (this.arrowScale <= 2) {
+                    GetComponent<Transform>().localScale = new Vector3(1, 2, 1);
+                } else {
+                    GetComponent<Transform>().localScale = new Vector3(1, (float)this.arrowScale, 1);
                 }
                 GetComponent<Transform>().rotation = rot;
             }
