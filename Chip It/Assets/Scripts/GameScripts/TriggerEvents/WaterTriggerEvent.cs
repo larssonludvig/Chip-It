@@ -7,20 +7,31 @@ public class WaterTriggerEvent: MonoBehaviour
 {
     private readonly GameManager instance;
     private readonly PlayerInteraction interaction;
+    private bool active = false;
     private readonly int delay = 2000;
 
     /// <summary>
     /// Checks for collision
     /// </summary>
     /// <param name="collision"></param>
-    private async void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.CompareTag("Player")) {
-            PlayerInteraction.interaction.triggerBox = true;
-            await Task.Delay(this.delay);
-            if (collision.CompareTag("Player")) {
-                GameManager.instance.SetBackPlayer();
-                PlayerInteraction.interaction.triggerBox = false;
-            }
+    private async void OnTriggerEnter2D(Collider2D collision)
+    {
+        this.active = true;
+
+        PlayerInteraction.interaction.triggerBox = true;
+        await Task.Delay(this.delay);
+        if (this.active) {
+            GameManager.instance.SetBackPlayer();
+            PlayerInteraction.interaction.triggerBox = false;
         }
+    }
+
+    /// <summary>
+    /// Checks if the player leaves the triggerbox
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        this.active = false;
     }
 }
