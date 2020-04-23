@@ -32,4 +32,60 @@ public class MainMenu : MonoBehaviour
     public void LevelThree() {
         SceneManager.LoadScene(3);
     }
+
+    /// <summary>
+    /// Loads level 4
+    /// </summary>
+    public void LevelFour()
+    {
+        SceneManager.LoadScene(4);
+    }
+
+    /// <summary>
+    /// Loads level 5
+    /// </summary>
+    public void LevelFive()
+    {
+        SceneManager.LoadScene(5);
+    }
+
+    /// <summary>
+    /// Loads level 6
+    /// </summary>
+    public void LevelSix()
+    {
+        SceneManager.LoadScene(6);
+    }
+
+    /// <summary>
+    /// Loads level 7
+    /// </summary>
+    public void LevelSeven()
+    {
+        SceneManager.LoadScene(7);
+    }
+
+    /// <summary>
+    /// Loads level 8
+    /// </summary>
+    public void LevelEight()
+    {
+        SceneManager.LoadScene(8);
+    }
+
+    /// <summary>
+    /// Loads level 9
+    /// </summary>
+    public void LevelNine()
+    {
+        SceneManager.LoadScene(9);
+    }
+
+    /// <summary>
+    /// Loads level 10
+    /// </summary>
+    public void LevelTen()
+    {
+        SceneManager.LoadScene(10);
+    }
 }
